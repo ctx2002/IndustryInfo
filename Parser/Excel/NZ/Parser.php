@@ -17,6 +17,6 @@ class Parser
     public function run()
     {
         $sheetData = $this->reader->getActiveSheet()->toArray(null,true,true,true);
-        
+        return $sheetData;
     }
 }

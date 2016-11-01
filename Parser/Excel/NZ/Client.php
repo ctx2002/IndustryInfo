@@ -18,7 +18,7 @@ class Client
     {
         $reader = $this->open();
         $parser = new Parser($reader);
-        $parser->run();
+        return $parser->run();
     }
 
     private function open()
