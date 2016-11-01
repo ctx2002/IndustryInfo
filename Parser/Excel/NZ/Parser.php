@@ -1,30 +1,22 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: user
- * Date: 10/29/2016
- * Time: 9:22 PM
- */
-
 namespace Softwarewisdom\Crawler\Parser\Excel\NZ;
-
+use \PHPExcel;
+use Softwarewisdom\Crawler\Parser\Excel\NZ\ReaderFilter;
 /**
 this class is used to fetch an industry name
  ***/
 class Parser
 {
-    /** int which row of industry name*/
-    private $row;
-    /** int which column of industry name**/
-    private $column;
-    public function __construct($row,$column)
+    /** @var \PHPExcel ***/
+    private $reader;
+    public function __construct(\PHPExcel $reader)
     {
-        $this->row = $row;
-        $this->column = $column;
+        $this->reader = $reader;
     }
 
     public function run()
     {
-
+        $sheetData = $this->reader->getActiveSheet()->toArray(null,true,true,true);
+        
     }
 }

@@ -3,6 +3,7 @@
 namespace Softwarewisdom\Crawler\Parser\Excel\NZ;
 
 use PHPExcel_IOFactory;
+use Softwarewisdom\Crawler\Parser\Excel\NZ\ReaderFilter;
 
 class Client
 {
@@ -16,14 +17,16 @@ class Client
     public function fetch()
     {
         $reader = $this->open();
-        //TODO: for each industry name, we have to save store it somewhere.
-        //or may be send each industry name to a gear job server?
+        $parser = new Parser($reader);
+        $parser->run();
     }
 
     private function open()
     {
         $file = tempnam(sys_get_temp_dir(), 'excel_');
-        $h = fopen($file, "r");
+        $file = $file.".xls";
+
+        $h = fopen($file, "w");
         $errorStr = "";
         $content = "";
         if (!$h) {
@@ -47,9 +50,14 @@ class Client
         }
         fclose($h);
         if ($errorStr == '') {
-            $obj = PHPExcel_IOFactory::load($file);
+            /** @var \PHPExcel_Reader_Excel5 $obj ***/
+            $obj = \PHPExcel_IOFactory::createReader("Excel5");
+            $obj->setReadDataOnly(true);
+            $obj->setReadFilter(new ReaderFilter());
+
+            $objPHPExcel = $obj->load($file);
             unlink($file);
-            return $obj;
+            return $objPHPExcel;
         } else {
             throw new \Exception($errorStr);
         }
