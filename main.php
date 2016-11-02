@@ -2,9 +2,10 @@
 require_once "bootstrap.php";
 require_once "vendor/autoload.php";
 use Softwarewisdom\Crawler\Parser\Excel\NZ\Client;
+use Softwarewisdom\Crawler\Downloader\NZ\YellowPage;
 
 global $entityManager;
-$conn = $entityManager->getConnection();
+/*$conn = $entityManager->getConnection();
 
 $client = new Client();
 $data = $client->fetch();
@@ -18,4 +19,6 @@ foreach ($data as $item) {
     $stm->bindValue("code", $item['A']);
     $stm->execute();
 }
-$conn->commit();
+$conn->commit();*/
+$yellow = new YellowPage();
+$yellow->search('beekeeping');

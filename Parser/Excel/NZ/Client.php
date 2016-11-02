@@ -3,7 +3,6 @@
 namespace Softwarewisdom\Crawler\Parser\Excel\NZ;
 
 use PHPExcel_IOFactory;
-use Softwarewisdom\Crawler\Parser\Excel\NZ\ReaderFilter;
 
 class Client
 {
