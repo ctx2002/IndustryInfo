@@ -25,7 +25,8 @@ class YellowPage
             'base_uri' => $this->answer->url(),
             // You can set any number of default request options.
             'timeout'  => 10,
-            'verify' => false
+            'verify' => false,
+            'headers' => ['User-Agent' => 'wisdom/1.0'],
         ]);
 
         $response = $client->request('POST', $this->answer->url()."search", [
@@ -38,7 +39,8 @@ class YellowPage
         ]);
 
         $links = $this->fetchLinks($response->getBody()->getContents());
-        var_dump($links);
+        return $links;
+        //TODO: all those links should be save into database
        // var_dump($response->getBody()->getContents());
     }
 

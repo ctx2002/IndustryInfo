@@ -21,4 +21,5 @@ foreach ($data as $item) {
 }
 $conn->commit();*/
 $yellow = new YellowPage();
-$yellow->search('beekeeping');
+$links = $yellow->search('beekeeping');
+var_dump($links);
