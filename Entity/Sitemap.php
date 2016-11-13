@@ -2,7 +2,8 @@
 namespace Softwarewisdom\Crawler\Entity;
 
 /**
- * @Entity @Table(name="sitemap")
+ * @Entity(repositoryClass="Softwarewisdom\Crawler\Repository\Sitemap")
+ * @Table(name="sitemap")
  **/
 class Sitemap
 {

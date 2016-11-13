@@ -6,6 +6,7 @@ use Softwarewisdom\Crawler\Downloader\NZ\YellowPage;
 use Softwarewisdom\Crawler\Parser\RobotFile;
 use Softwarewisdom\Crawler\Bot\NZYellowPageBot;
 use Softwarewisdom\Crawler\Tools;
+use Softwarewisdom\Crawler\Downloader\Page;
 
 global $entityManager;
 /*$conn = $entityManager->getConnection();
@@ -31,6 +32,6 @@ var_dump($links);*/
 $content = $ro->parse();
 var_dump($content);*/
 
-$bot = new NZYellowPageBot(new RobotFile("https://yellow.co.nz/"));
+$bot = new NZYellowPageBot(new RobotFile( new Page("https://yellow.co.nz/robots.txt")));
 
 \Softwarewisdom\Crawler\Tools\saveSiteMapToDB($bot, $entityManager);

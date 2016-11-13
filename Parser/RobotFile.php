@@ -1,12 +1,13 @@
 <?php
 namespace Softwarewisdom\Crawler\Parser;
+use Softwarewisdom\Crawler\Downloader\Page;
 
 class RobotFile
 {
     private $url = '';
     private $content;
     private $section;
-    public function __construct($url)
+    public function __construct(Page $url)
     {
         $this->url = $url;
         $this->section = [];
@@ -15,11 +16,12 @@ class RobotFile
 
     public function parse()
     {
-        $file = file($this->url."robots.txt");
+        /*$file = file($this->url."robots.txt");
         if (!$file) {
             throw new \Exception("unable to download $this->url.\"robots.txt\" ");
         }
-        $this->content = $file;
+        $this->content = $file;*/
+        $this->content = $this->url->contentArray();
         $this->sections();
         return $this;
     }
