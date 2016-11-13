@@ -9,11 +9,11 @@ class NZYellowPageBot implements IBot
     public function __construct(RobotFile $file)
     {
         $this->robotFile = $file;
+        $this->robotFile->parse();
     }
 
     public function sitemap()
     {
-        $this->robotFile->parse();
         $url = $this->robotFile->siteMapUrl();
         $file = file_get_contents($url);
         if (!$file) {
