@@ -16,11 +16,6 @@ class RobotFile
 
     public function parse()
     {
-        /*$file = file($this->url."robots.txt");
-        if (!$file) {
-            throw new \Exception("unable to download $this->url.\"robots.txt\" ");
-        }
-        $this->content = $file;*/
         $this->content = $this->url->contentArray();
         $this->sections();
         return $this;
