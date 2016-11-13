@@ -23,6 +23,7 @@
     "psr-4": { "Softwarewisdom\\Crawler\\": "" },
     "exclude-from-classmap": [
       "/Tests/"
-    ]
+    ],
+    "files": ["Tools/db.php"]
   }
 }

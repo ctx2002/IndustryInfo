@@ -4,6 +4,8 @@ require_once "vendor/autoload.php";
 use Softwarewisdom\Crawler\Parser\Excel\NZ\Client;
 use Softwarewisdom\Crawler\Downloader\NZ\YellowPage;
 use Softwarewisdom\Crawler\Parser\RobotFile;
+use Softwarewisdom\Crawler\Bot\NZYellowPageBot;
+use Softwarewisdom\Crawler\Tools;
 
 global $entityManager;
 /*$conn = $entityManager->getConnection();
@@ -25,6 +27,10 @@ $conn->commit();*/
 $links = $yellow->search('beekeeping');
 var_dump($links);*/
 
-$ro = new RobotFile("https://yellow.co.nz/");
+/*$ro = new RobotFile("https://yellow.co.nz/");
 $content = $ro->parse();
-var_dump($content);
+var_dump($content);*/
+
+$bot = new NZYellowPageBot(new RobotFile("https://yellow.co.nz/"));
+
+\Softwarewisdom\Crawler\Tools\saveSiteMapToDB($bot, $entityManager);

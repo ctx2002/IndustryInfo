@@ -1,7 +1,9 @@
 <?php
 namespace Softwarewisdom\Crawler\Entity;
 
-
+/**
+ * @Entity @Table(name="sitemap")
+ **/
 class Sitemap
 {
     /** @Id @Column(type="integer") @GeneratedValue **/
