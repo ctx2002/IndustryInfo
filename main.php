@@ -5,10 +5,26 @@ use Softwarewisdom\Crawler\Parser\Excel\NZ\Client;
 use Softwarewisdom\Crawler\Downloader\NZ\YellowPage;
 use Softwarewisdom\Crawler\Parser\RobotFile;
 use Softwarewisdom\Crawler\Bot\NZYellowPageBot;
+use Softwarewisdom\Crawler\Bot\SitemapBot;
 use Softwarewisdom\Crawler\Tools;
 use Softwarewisdom\Crawler\Downloader\Page;
+use Symfony\Component\DomCrawler\Crawler;
+use Softwarewisdom\Crawler\Worker\SitemapUrl\SiteUrl;
 
 global $entityManager;
+/*$html = @file_get_contents("http://www.gmdesigns.co.nz/");
+//$html = @file_get_contents("http://www.rsport.co.nz");
+if ($html) {
+    $crawler = new Crawler($html);
+    $doms = $crawler->filterXPath('//a[@href]');
+    foreach ($doms as $link) {
+        var_dump($link->getAttribute('href'));
+    }
+} else {
+
+}*/
+$url = new SiteUrl($entityManager);
+$url->fillingContent();
 /*$conn = $entityManager->getConnection();
 
 $client = new Client();
@@ -32,6 +48,15 @@ var_dump($links);*/
 $content = $ro->parse();
 var_dump($content);*/
 
-$bot = new NZYellowPageBot(new RobotFile( new Page("https://yellow.co.nz/robots.txt")));
+/*$bot = new SitemapBot(new RobotFile( new Page("https://yellow.co.nz/robots.txt")), 'nz yellow page');
 
-\Softwarewisdom\Crawler\Tools\saveSiteMapToDB($bot, $entityManager);
+\Softwarewisdom\Crawler\Tools\saveSiteMapToDB($bot, $entityManager);*/
+
+//for each site map url , search all urls inside the map.
+
+//use supervisor to run seedSites.php, sitemapUrl.php, and siteUrl.php,
+// in siteUrl, fillingContent used to fetch html page.
+//seedSites.php, sitemapUrl.php, and siteUrl.php should only be run in single process
+
+// TODO: need a page analysist , so we can grab all html like and put into siteUrl.
+//TODO: fetch each urls in siteUrl Table, and 

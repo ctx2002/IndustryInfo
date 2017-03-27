@@ -1,0 +1,9 @@
+1> loading seedSites into sitemap db
+2> loading sitemapUrl.php into sitemap_url db.
+3> loading urls by siteUrl.php
+4> loading url's content by urlContent.php
+5> url procesing
+
+6> need to write a cron job to clean all "done" row. and running VACUUM command to repaire table
+
+7> builder gearman worker process

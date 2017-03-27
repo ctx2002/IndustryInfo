@@ -15,4 +15,15 @@ class Sitemap extends EntityRepository
         }
         return new \Softwarewisdom\Crawler\Entity\Sitemap();
     }
+
+    public function loadOneOrNull($name)
+    {
+        $result = $this->findBy(['name' => $name]);
+        if ($result) {
+            if (isset($result[0])) {
+                return $result[0];
+            }
+        }
+        return null;
+    }
 }
