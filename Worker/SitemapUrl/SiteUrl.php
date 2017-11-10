@@ -67,7 +67,6 @@ class SiteUrl implements SitemapContract
         $results = $query->setMaxResults(20)->getResult();
         foreach ($results as $url) {
             /** @var \Softwarewisdom\Crawler\Entity\Url $url **/
-            echo $url->getId();
             $html = file_get_contents($url->getUrl());
             $url->setHtmlContent(trim( $html));
             $url->setStatus("processing");
