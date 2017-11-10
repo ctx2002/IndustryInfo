@@ -4,6 +4,7 @@ require_once "vendor/autoload.php";
 
 use Softwarewisdom\Crawler\Tools;
 use Softwarewisdom\Crawler\Worker\SitemapUrl\SiteUrl;
+use Symfony\Component\Console\Application;
 
 global $entityManager;
 

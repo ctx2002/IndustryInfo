@@ -13,7 +13,6 @@ global $entityManager;
         $sitemap = $query->setMaxResults(1)->getOneOrNullResult();
 
         if ($sitemap) {
-
             $surl = new SitemapUrl($sitemap, $entityManager);
             $surl->sitemapurl();
             $sitemap->setStatus("done");
@@ -22,7 +21,6 @@ global $entityManager;
         }
 
     } catch (\Exception $e) {
-        var_dump($e->getMessage());
         die();
     }
 

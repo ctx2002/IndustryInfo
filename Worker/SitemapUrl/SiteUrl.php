@@ -5,15 +5,23 @@ namespace Softwarewisdom\Crawler\Worker\SitemapUrl;
 use Softwarewisdom\Crawler\Contract\SitemapContract;
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Client;
+use Symfony\Component\Console\Helper\ProgressBar;
 
 class SiteUrl implements SitemapContract
 {
     private $urls;
     private $em;
+    private $progressBar;
     public function __construct(EntityManager $entityManager)
     {
         $this->urls = array();
         $this->em = $entityManager;
+    }
+
+    public function setProgressBar(ProgressBar $bar)
+    {
+        $this->progressBar = $bar;
+        $this->progressBar->start();
     }
     /* filling urls table **/
     public function sitemapurl()
@@ -31,9 +39,10 @@ class SiteUrl implements SitemapContract
                 foreach ($str->url as $site) {
                     $this->urls[] = array("loc" => (string)$site->loc,
                         "changefreq" => (string)$site->changefreq, 'parser'=> "",'status'=>'pending');
+                    $this->progressAdv();
                     $this->insert();
                 }
-
+                $this->progressAdv();
                 $this->insert();
                 $sitemapUrl->setStatus("done");
             }
@@ -43,12 +52,27 @@ class SiteUrl implements SitemapContract
         $this->em->clear();
     }
 
+    private function progressAdv()
+    {
+        if ($this->progressBar) {
+            $this->progressBar->advance();
+        }
+    }
+
     public function fillingContent()
     {
         $query = $this->em->createQuery('SELECT s FROM Softwarewisdom\Crawler\Entity\Url s WHERE s.status=\'pending\' ORDER BY s.id');
-        /** @var \Softwarewisdom\Crawler\Entity\Url $url **/
-        $url = $query->setMaxResults(1)->getOneOrNullResult();
-        if ($url) {
+
+        //$url = $query->setMaxResults(1)->getOneOrNullResult();
+        $results = $query->setMaxResults(200)->getResult();
+        foreach ($results as $url) {
+            /** @var \Softwarewisdom\Crawler\Entity\Url $url **/
+            $html = file_get_contents($url->getUrl());
+            $url->setHtmlContent(trim( $html));
+            $url->setStatus("processing");
+        }
+        $this->em->flush();
+        /*if ($url) {
             $html = file_get_contents($url->getUrl());
             $url->setHtmlContent(trim( $html));
             $url->setStatus("processing");
@@ -63,7 +87,7 @@ class SiteUrl implements SitemapContract
             }
 
             $this->em->flush();
-        }
+        }*/
     }
 
     private function insert($limit = 10000)
