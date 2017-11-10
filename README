@@ -7,3 +7,5 @@
 6> need to write a cron job to clean all "done" row. and running VACUUM command to repaire table
 
 7> builder gearman worker process
+
+8> we need a period sqlite db maintenance script.

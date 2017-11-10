@@ -10,8 +10,11 @@ use Softwarewisdom\Crawler\Tools;
 use Softwarewisdom\Crawler\Downloader\Page;
 use Symfony\Component\DomCrawler\Crawler;
 use Softwarewisdom\Crawler\Worker\SitemapUrl\SiteUrl;
+use Softwarewisdom\Crawler\Db\Sqlite3;
 
 global $entityManager;
+$db = new Sqlite3($entityManager);
+$db->run();
 /*$html = @file_get_contents("http://www.gmdesigns.co.nz/");
 //$html = @file_get_contents("http://www.rsport.co.nz");
 if ($html) {
@@ -23,8 +26,8 @@ if ($html) {
 } else {
 
 }*/
-$url = new SiteUrl($entityManager);
-$url->fillingContent();
+//$url = new SiteUrl($entityManager);
+//$url->fillingContent();
 /*$conn = $entityManager->getConnection();
 
 $client = new Client();
