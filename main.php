@@ -13,6 +13,7 @@ use Softwarewisdom\Crawler\Worker\SitemapUrl\SiteUrl;
 use Softwarewisdom\Crawler\Db\Sqlite3;
 
 global $entityManager;
+$entityManager->getConnection()->getConfiguration()->setSQLLogger(null);
 $db = new Sqlite3($entityManager);
 $db->run();
 /*$html = @file_get_contents("http://www.gmdesigns.co.nz/");

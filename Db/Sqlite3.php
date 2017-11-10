@@ -32,14 +32,14 @@ class Sqlite3 implements DBMaintenance
     {
         $sql = "PRAGMA optimize";
         $conn = $this->manager->getConnection();
-        $conn->exec($sql);
+        return $conn->fetchAll($sql);
     }
 
     public function check()
     {
         $sql = "PRAGMA integrity_check";
         $conn = $this->manager->getConnection();
-        $conn->exec($sql);
+        return $conn->fetchAll($sql);
     }
 
     public function run()
