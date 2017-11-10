@@ -12,10 +12,10 @@ try {
     $helper = new SiteUrl($entityManager);
     //$helper->fillingContent();
     $i = 0;
-    while (true) {
+    //while (true) {
         $helper->fillingContent();
-        sleep(rand(10,45));
-    }
+        sleep(rand(5,20));
+    //}
 } catch (\Exception $e) {
     var_dump($e->getMessage());
     die();

@@ -64,9 +64,10 @@ class SiteUrl implements SitemapContract
         $query = $this->em->createQuery('SELECT s FROM Softwarewisdom\Crawler\Entity\Url s WHERE s.status=\'pending\' ORDER BY s.id');
 
         //$url = $query->setMaxResults(1)->getOneOrNullResult();
-        $results = $query->setMaxResults(200)->getResult();
+        $results = $query->setMaxResults(20)->getResult();
         foreach ($results as $url) {
             /** @var \Softwarewisdom\Crawler\Entity\Url $url **/
+            echo $url->getId();
             $html = file_get_contents($url->getUrl());
             $url->setHtmlContent(trim( $html));
             $url->setStatus("processing");
