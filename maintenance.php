@@ -9,4 +9,4 @@ global $entityManager;
 $db = new Sqlite3($entityManager);
 $db->run();
 
-shell_exec('supervisor start urlContent');
+shell_exec('supervisorctl start urlContent');
