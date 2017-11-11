@@ -9,3 +9,13 @@
 7> builder gearman worker process
 
 8> we need a period sqlite db maintenance script.
+
+once a month loading sitemap's url into db
+0 */3 * * * php /var/www/url/IndustryInfo/sitemapUrl.php
+
+every 4 hours loading urls
+0 */4 * * * php /var/www/url/IndustryInfo/siteUrl.php
+
+9> once a month loading site map seeds
+
+0 0 1 * * php /var/www/url/IndustryInfo/seedSites.php
