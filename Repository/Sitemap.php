@@ -26,4 +26,12 @@ class Sitemap extends EntityRepository
         }
         return null;
     }
+
+    public function deleteStatus($status)
+    {
+        $dql = "DELETE Softwarewisdom\Crawler\Entity\Sitemap u WHERE u.status = :status";
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter("status", $status);
+        $query->execute();
+    }
 }

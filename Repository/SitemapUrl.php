@@ -21,4 +21,12 @@ class SitemapUrl extends EntityRepository
         $con->query($sql. $part . "')");
 
     }
+
+    public function deleteStatus($status)
+    {
+        $dql = "DELETE Softwarewisdom\Crawler\Entity\SitemapUrl u WHERE u.status = :status";
+        $query = $this->getEntityManager()->createQuery($dql)
+            ->setParameter("status", $status);
+        $query->execute();
+    }
 }

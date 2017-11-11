@@ -1,9 +1,9 @@
 <?php
 
 namespace Softwarewisdom\Crawler\Entity;
-
 /**
- * @Entity @Table(name="urls")
+ * @Entity(repositoryClass="Softwarewisdom\Crawler\Repository\Url")
+ * @Table(name="urls")
  **/
 class Url
 {
