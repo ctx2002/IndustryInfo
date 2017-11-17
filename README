@@ -8,7 +8,8 @@
 
 7> builder gearman worker process
 
-8> we need a period sqlite db maintenance script.
+8> we need a period sqlite db maintenance script. under sudo user
+0 02 * * * php /var/www/url/IndustryInfo/maintenance.php
 
 once a month loading sitemap's url into db
 0 */3 * * * php /var/www/url/IndustryInfo/sitemapUrl.php
@@ -19,3 +20,5 @@ every 4 hours loading urls
 9> once a month loading site map seeds
 
 0 0 1 * * php /var/www/url/IndustryInfo/seedSites.php
+
+10> supervisor job

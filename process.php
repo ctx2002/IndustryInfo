@@ -16,10 +16,20 @@ foreach ($results as $result) {
     $str = $result->getHtmlContent();
     if (trim($str)) {
         $text = $an->process($str);
-        $text = $conn->quote($text);
-        $sql = 'INSERT INTO enrondata1(content) VALUES('.$text.')';
-        $conn->exec($sql);
-        $result->setStatus("done");
+
+        $st = $conn->prepare("select url from content where url = :url");
+        $st->bindValue("url", $result->getUrl());
+        $st->execute();
+        $data = $st->fetchAll();
+        $insert = "INSERT INTO content(url, body) VALUES(:url, :body)";
+        if (count($data) > 0) {
+            //old record, update.
+            $insert = "UPDATE content SET body = :body WHERE url = :url";
+        }
+        $stm = $conn->prepare($insert);
+        $stm->bindValue("url",  $result->getUrl());
+        $stm->bindValue("body", $text);
+        $stm->execute();
     }
 }
 $entityManager->flush();
