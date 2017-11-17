@@ -18,3 +18,5 @@ try {
     var_dump($e->getMessage());
     die();
 }
+//process HTML Page
+include "process.php";
