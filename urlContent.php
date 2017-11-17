@@ -2,9 +2,7 @@
 require_once "bootstrap.php";
 require_once "vendor/autoload.php";
 
-use Softwarewisdom\Crawler\Tools;
 use Softwarewisdom\Crawler\Worker\SitemapUrl\SiteUrl;
-use Softwarewisdom\Crawler\Entity\Url;
 
 global $entityManager;
 
@@ -13,8 +11,8 @@ try {
     //$helper->fillingContent();
     $i = 0;
     //while (true) {
-        $helper->fillingContent();
-        sleep(rand(5,20));
+    $helper->fillingContent();
+    sleep(rand(5, 20));
     //}
 } catch (\Exception $e) {
     var_dump($e->getMessage());
