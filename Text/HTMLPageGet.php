@@ -47,16 +47,21 @@ class HTMLPageGet
      */
     public function extractAHref()
     {
-        $body = $this->content->getBody()->getContents();
+        if ($this->content) {
+            $body = $this->content->getBody()->getContents();
 
-        $crawler = new Crawler($body);
-        $this->aNodes = $crawler->filterXPath('//a[@href]');
+            $crawler = new Crawler($body);
+            $this->aNodes = $crawler->filterXPath('//a[@href]');
+        }
         return $this->aNodes;
     }
 
     public function body()
     {
-        return $this->content->getBody()->getContents();
+        if ($this->content) {
+            return $this->content->getBody()->getContents();
+        }
+        return "";
     }
 
     /**
@@ -67,11 +72,14 @@ class HTMLPageGet
         $url = new Url($this->url);
         $get = new GetClient($url);
         //is path allowed?
-
-        if (!$this->file->parse()->isPathDisAllowed($url->path())) {
-            $this->content = $get->loadUserAgent()->load($url->path());
-        } else {
-            echo $url->path() . " dis-allowed.\n";
+        try {
+            if (!$this->file->parse()->isPathDisAllowed($url->path())) {
+                $this->content = $get->loadUserAgent()->load($url->path());
+            } else {
+                echo $url->path() . " dis-allowed.\n";
+            }
+        } catch (\Exception $e) {
+            //var_dump($e->getMessage());
         }
         return $this;
     }
