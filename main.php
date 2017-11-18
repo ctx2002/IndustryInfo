@@ -12,12 +12,20 @@ use Symfony\Component\DomCrawler\Crawler;
 use Softwarewisdom\Crawler\Worker\SitemapUrl\SiteUrl;
 use Softwarewisdom\Crawler\Db\Sqlite3;
 use Softwarewisdom\Crawler\HTTP\UserAgent;
-
+use Softwarewisdom\Crawler\Downloader\Head;
+use Softwarewisdom\Crawler\Text\HTMLPageGet;
 global $entityManager;
 
-$userAgent = new UserAgent();
+$get= new HTMLPageGet("https://bbc.com");
+$doms = $get->download()->extractAHref();
+foreach ($doms as $node) {
+    echo $node->getAttribute("href");
+    echo "\n";
+}
+
+/*$userAgent = new UserAgent();
 echo $userAgent->getOne();
-echo "\n";
+echo "\n";*/
 /*$entityManager->getConnection()->getConfiguration()->setSQLLogger(null);
 $db = new Sqlite3($entityManager);
 $db->run();*/

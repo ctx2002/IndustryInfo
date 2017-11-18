@@ -70,4 +70,10 @@ class Url
     {
         return parse_url($this->url, PHP_URL_HOST);
     }
+
+    public function path()
+    {
+        //PHP_URL_PATH
+        return parse_url($this->url, PHP_URL_PATH);
+    }
 }
