@@ -15,10 +15,10 @@ class GetClient
     private $userAgent;
     private $config;
     private $url;
-    public function __construct($url)
+    public function __construct(Url $url)
     {
         $this->get = new Get();
-        $this->url = new Url($url);
+        $this->url = $url;
         $this->userAgent = new UserAgent();
         $this->config = [];
     }

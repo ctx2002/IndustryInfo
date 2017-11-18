@@ -10,6 +10,7 @@ namespace Softwarewisdom\Crawler\Text;
 use Softwarewisdom\Crawler\HTTP\Url;
 use Softwarewisdom\Crawler\Downloader\GetClient;
 use Symfony\Component\DomCrawler\Crawler;
+
 class HTMLPageGet
 {
     /**
@@ -32,7 +33,7 @@ class HTMLPageGet
     public function __construct($url)
     {
         $this->url = $url;
-
+        return $this;
     }
 
     /**
@@ -47,13 +48,19 @@ class HTMLPageGet
         return $this->aNodes;
     }
 
+    public function body()
+    {
+        return $this->content->getBody()->getContents();
+    }
+
     /**
      * @return $this
      */
-    public function download($path = "")
+    public function download()
     {
-        $get = new GetClient($this->url);
-        $this->content = $get->loadUserAgent()->load($path);
+        $url = new Url($this->url);
+        $get = new GetClient($url);
+        $this->content = $get->loadUserAgent()->load($url->path());
         return $this;
     }
 

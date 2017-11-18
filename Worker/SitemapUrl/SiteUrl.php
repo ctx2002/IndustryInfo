@@ -6,6 +6,7 @@ use Softwarewisdom\Crawler\Contract\SitemapContract;
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Client;
 use Symfony\Component\Console\Helper\ProgressBar;
+use Softwarewisdom\Crawler\Text\HTMLPageGet;
 
 class SiteUrl implements SitemapContract
 {
@@ -65,9 +66,11 @@ class SiteUrl implements SitemapContract
 
         //$url = $query->setMaxResults(1)->getOneOrNullResult();
         $results = $query->setMaxResults(20)->getResult();
+
         foreach ($results as $url) {
             /** @var \Softwarewisdom\Crawler\Entity\Url $url **/
-            $html = file_get_contents($url->getUrl());
+            $get = new HTMLPageGet($url->getUrl());
+            $html = $get->download()->body();
             $url->setHtmlContent(trim( $html));
             $url->setStatus("processing");
         }

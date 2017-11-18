@@ -34,7 +34,7 @@ class UserAgent
      */
     public function getOne()
     {
-        $index = rand(1, $this->pool->count ());
+        $index = rand(0, $this->pool->count()-1);
         return $this->pool->offsetGet($index);
     }
 }

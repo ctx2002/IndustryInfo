@@ -12,10 +12,10 @@ try {
     $i = 0;
     //while (true) {
     $helper->fillingContent();
-    sleep(rand(5, 20));
+    //sleep(rand(5, 20));
     //}
 } catch (\Exception $e) {
-    var_dump($e->getMessage());
+    var_dump($e->getMessage(),$e);
     die();
 }
 //process HTML Page
