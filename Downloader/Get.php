@@ -13,11 +13,6 @@ use Softwarewisdom\Crawler\HTTP\UserAgent;
 
 class Get
 {
-    private $userAgent;
-    public function __construct()
-    {
-        $this->userAgent = new UserAgent();
-    }
     /**
      * @return \Psr\Http\Message\ResponseInterface
      * ****/
