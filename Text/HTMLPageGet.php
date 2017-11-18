@@ -10,6 +10,7 @@ namespace Softwarewisdom\Crawler\Text;
 use Softwarewisdom\Crawler\HTTP\Url;
 use Softwarewisdom\Crawler\Downloader\GetClient;
 use Symfony\Component\DomCrawler\Crawler;
+use Softwarewisdom\Crawler\Parser\RobotFile;
 
 class HTMLPageGet
 {
@@ -18,7 +19,7 @@ class HTMLPageGet
      */
     private $url;
     /**
-     * @var \Psr\Http\Message\ResponseInterface
+     * @var \Psr\Http\Message\ResponseInterface | null
      */
     private $content;
     /**
@@ -27,13 +28,18 @@ class HTMLPageGet
     private $aNodes;
 
     /**
+     * @var RobotFile
+     */
+    private $file;
+    /**
      * HTMLPageGet constructor.
      * @param $url
      */
-    public function __construct($url)
+    public function __construct($url, RobotFile $file)
     {
         $this->url = $url;
-        return $this;
+        $this->file = $file;
+        $this->content = null;
     }
 
     /**
@@ -60,7 +66,13 @@ class HTMLPageGet
     {
         $url = new Url($this->url);
         $get = new GetClient($url);
-        $this->content = $get->loadUserAgent()->load($url->path());
+        //is path allowed?
+
+        if (!$this->file->parse()->isPathDisAllowed($url->path())) {
+            $this->content = $get->loadUserAgent()->load($url->path());
+        } else {
+            echo $url->path() . " dis-allowed.\n";
+        }
         return $this;
     }
 

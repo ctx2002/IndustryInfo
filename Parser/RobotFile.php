@@ -1,6 +1,7 @@
 <?php
 namespace Softwarewisdom\Crawler\Parser;
 use Softwarewisdom\Crawler\Downloader\Page;
+use Softwarewisdom\Crawler\Tools\AString;
 
 class RobotFile
 {
@@ -16,7 +17,9 @@ class RobotFile
 
     public function parse()
     {
-        $this->content = $this->url->contentArray();
+        if (!$this->content) {
+            $this->content = $this->url->contentArray();
+        }
         $this->sections();
         return $this;
     }
@@ -59,6 +62,16 @@ class RobotFile
         if ( isset($this->section["User-agent"][$botName]['disallow'])) {
             return $this->section["User-agent"][$botName]['disallow'];
         }
-        return "";
+        return [];
+    }
+
+    public function isPathDisAllowed($path)
+    {
+        $dis = $this->disAllow();
+        $p = new AString($path);
+        if (!$p->endWith('/')) {
+            $path = $path . "/";
+        }
+        return in_array($path, $dis);
     }
 }

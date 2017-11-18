@@ -5,8 +5,10 @@ namespace Softwarewisdom\Crawler\Worker\SitemapUrl;
 use Softwarewisdom\Crawler\Contract\SitemapContract;
 use Doctrine\ORM\EntityManager;
 use GuzzleHttp\Client;
+use Softwarewisdom\Crawler\Parser\RobotFile;
 use Symfony\Component\Console\Helper\ProgressBar;
 use Softwarewisdom\Crawler\Text\HTMLPageGet;
+use Softwarewisdom\Crawler\Downloader\Page;
 
 class SiteUrl implements SitemapContract
 {
@@ -66,11 +68,12 @@ class SiteUrl implements SitemapContract
 
         //$url = $query->setMaxResults(1)->getOneOrNullResult();
         $results = $query->setMaxResults(20)->getResult();
+        $file = new RobotFile(new Page("https://yellow.co.nz/robots.txt"));
 
         foreach ($results as $url) {
             /** @var \Softwarewisdom\Crawler\Entity\Url $url **/
-            $get = new HTMLPageGet($url->getUrl());
-            $html = $get->download()->body();
+            $get = new HTMLPageGet($url->getUrl(), $file);
+            $html = $get->download()->delay(rand(5,10))->body();
             $url->setHtmlContent(trim( $html));
             $url->setStatus("processing");
         }
