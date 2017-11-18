@@ -25,5 +25,8 @@
       "/Tests/"
     ],
     "files": ["Tools/db.php"]
+  },
+  "require-dev": {
+    "phpunit/phpunit": "5.7"
   }
 }
